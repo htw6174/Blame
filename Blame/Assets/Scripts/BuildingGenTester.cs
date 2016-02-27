@@ -1,28 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
-public class BlockGenerator : MonoBehaviour {
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+public class BuildingGenTester : Megastructure {
 
-    public bool gizmos;
+    public Vector3 minDimensions;
+    public Vector3 maxDimensions;
 
-    public int width;
-    public int length;
-    public float minHeight;
-    public float maxHeight;
+    public int minBlocks, maxBlocks;
 
-    public float alleyWidth;
-    public float scale;
-
-    public int texWidth;
-    public int texHeight;
-
-    public Color baseColor;
-    public Color lightColor;
-
-    [Range(1, 32)]
-    public int lightSpacing;
     [Range(0f, 1f)]
+    public float overlap;
+
+    public float tilesPerWorldUnit;
+
+    public int texWidth, texHeight;
+
+    public Color baseColor, lightColor;
+
+    public int lightSpacing;
     public float lightFrequency;
 
     void Awake()
@@ -30,10 +26,18 @@ public class BlockGenerator : MonoBehaviour {
         Generate();
     }
 
+    public void UpdateDimensions()
+    {
+        Width = maxDimensions.x;
+        Length = maxDimensions.z;
+        Debug.Log(Width + ", " + Length);
+    }
+
     public void Generate()
     {
+        UpdateDimensions();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
-        mesh = StructureBase.Create(width, length, minHeight, maxHeight, alleyWidth, scale);
+        mesh = BuildingGenerator.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit);
         AssignMesh(mesh);
         AssignMaterial();
     }

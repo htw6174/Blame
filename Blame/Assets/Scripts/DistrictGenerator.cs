@@ -1,44 +1,58 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DistrictGenerator : MonoBehaviour {
+public class DistrictGenerator : Megastructure {
 
-    public int width;
-    public int length;
+    public int xStructures;
+    public int zStructures;
 
     public float roadWidth;
 
-    public BlockGenerator blockPrefab;
+    public Megastructure structurePrefab;
 
-    public BlockGenerator[] blocks;
+    public Megastructure[] blocks;
 
     void Start()
     {
-        float blockWidth = blockPrefab.width * blockPrefab.scale;
-        float blockLength = blockPrefab.length * blockPrefab.scale;
+        Debug.Log(structurePrefab.Width);
+        Debug.Log(structurePrefab.Length);
+        Generate();
+    }
 
-        float totalRoadWidth = roadWidth * (width - 1);
-        float totalRoadLength = roadWidth * (length - 1);
+    public void Generate()
+    {
+        UpdateDimensions();
 
-        float totalWidth = (blockWidth * (width - 1)) + totalRoadWidth;
-        float totalLength = (blockLength * (length - 1)) + totalRoadLength;
+        float xSpacing = structurePrefab.Width + roadWidth;
+        float zSpacing = structurePrefab.Length + roadWidth;
 
-        float xSpacing = blockPrefab.width * blockPrefab.scale + roadWidth;
-        float zSpacing = blockPrefab.length * blockPrefab.scale + roadWidth;
-        blocks = new BlockGenerator[width * length];
+        float totalRoadWidth = roadWidth * (xStructures - 1);
+        float totalRoadLength = roadWidth * (zStructures - 1);
 
-        for(int i = 0, z = 0; z < length; z++)
+        float totalWidth = (structurePrefab.Width * (xStructures - 1)) + totalRoadWidth;
+        float totalLength = (structurePrefab.Length * (zStructures - 1)) + totalRoadLength;
+
+        blocks = new Megastructure[xStructures * zStructures];
+
+        for (int i = 0, z = 0; z < zStructures; z++)
         {
-            for(int x = 0; x < width; x++, i++)
+            for (int x = 0; x < xStructures; x++, i++)
             {
+                Megastructure newStructure = Instantiate(structurePrefab);
+
                 float xPos = ((float)x * xSpacing) - ((totalWidth) / 2f);
                 float zPos = ((float)z * zSpacing) - (totalLength / 2f);
                 Vector3 blockPosition = new Vector3(xPos, 0f, zPos);
 
-                BlockGenerator newBlock = Instantiate(blockPrefab);
-                newBlock.transform.SetParent(transform, false);
-                newBlock.transform.position = transform.TransformPoint(blockPosition);
+                newStructure.transform.SetParent(transform, false);
+                newStructure.transform.position = transform.TransformPoint(blockPosition);
             }
         }
+    }
+
+    public void UpdateDimensions()
+    {
+        Width = (structurePrefab.Width * xStructures) + (roadWidth * (xStructures - 1));
+        Length = (structurePrefab.Length * zStructures) + (roadWidth * (zStructures - 1));
     }
 }

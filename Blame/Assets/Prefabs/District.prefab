@@ -1,50 +1,50 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &131406
+--- !u!1 &177926
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 460714}
-  - 114: {fileID: 11459792}
+  - 4: {fileID: 491670}
+  - 114: {fileID: 11441102}
   m_Layer: 0
-  m_Name: Block
+  m_Name: District
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &460714
+--- !u!4 &491670
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131406}
+  m_GameObject: {fileID: 177926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11459792
+--- !u!114 &11441102
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131406}
+  m_GameObject: {fileID: 177926}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe7ffd0ee629bcc409e2fc0fdb5366b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  length: 8
+  width: 60
+  length: 44
   xStructures: 4
   zStructures: 4
-  roadWidth: 0
-  structurePrefab: {fileID: 11429918, guid: b38163812151c15498e122f3ccbc076c, type: 2}
+  roadWidth: 4
+  structurePrefab: {fileID: 11459792, guid: 1c0cd2f3daac3ee40a80b9eae24aa1b4, type: 2}
   blocks: []
 --- !u!1001 &100100000
 Prefab:
@@ -55,5 +55,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 131406}
+  m_RootGameObject: {fileID: 177926}
   m_IsPrefabParent: 1
