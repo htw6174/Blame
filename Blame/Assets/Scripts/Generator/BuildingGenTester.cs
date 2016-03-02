@@ -12,6 +12,8 @@ public class BuildingGenTester : Megastructure {
     [Range(0f, 1f)]
     public float overlap;
 
+    public Vector3 focalPoint;
+
     public float tilesPerWorldUnit;
 
     public int texWidth, texHeight;
@@ -37,9 +39,10 @@ public class BuildingGenTester : Megastructure {
     {
         UpdateDimensions();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
-        mesh = BuildingGenerator.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit);
+        float focalRadius = Vector3.Distance(transform.position, focalPoint);
+        mesh = BuildingGenerator.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit, focalRadius);
         AssignMesh(mesh);
-        AssignMaterial();
+        //AssignMaterial();
     }
 
     private void AssignMesh(Mesh mesh)

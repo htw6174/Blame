@@ -81,11 +81,12 @@ MonoBehaviour:
   minBlocks: 6
   maxBlocks: 10
   overlap: 0.5
+  focalPoint: {x: 0, y: 0, z: 0}
   tilesPerWorldUnit: 0.5
   texWidth: 128
   texHeight: 128
-  baseColor: {r: 0.30147058, g: 0.30147058, b: 0.30147058, a: 0}
-  lightColor: {r: 1, g: 0.9724138, b: 0, a: 1}
+  baseColor: {r: 0.058823526, g: 0.058823526, b: 0.058823526, a: 0}
+  lightColor: {r: 0.5686275, g: 1, b: 0.9607843, a: 1}
   lightSpacing: 12
   lightFrequency: 0.4
 --- !u!1001 &100100000

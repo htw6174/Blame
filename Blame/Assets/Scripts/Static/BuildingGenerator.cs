@@ -3,14 +3,14 @@ using System.Collections;
 
 public static class BuildingGenerator {
     
-    public static Mesh Create(Vector3 minBlockSize, Vector3 maxBlockSize, int minBlocks, int maxBlocks, float overlap, float tilesPerWorldUnit)
+    public static Mesh Create(Vector3 minBlockSize, Vector3 maxBlockSize, int minBlocks, int maxBlocks, float overlap, float tilesPerWorldUnit, float focalRadius = 0f)
     {
         Mesh building = new Mesh();
 
         Vector3 dimensions = new Vector3(Random.Range(minBlockSize.x, maxBlockSize.x), Random.Range(minBlockSize.x, maxBlockSize.x), Random.Range(minBlockSize.x, maxBlockSize.x));
         int blocks = Random.Range(minBlocks, maxBlocks);
 
-        Vector3[] vertices = FillVertices(minBlockSize, maxBlockSize, blocks, overlap);
+        Vector3[] vertices = FillVertices(minBlockSize, maxBlockSize, blocks, overlap, focalRadius);
 
         building.name = "Building";
 
@@ -38,9 +38,12 @@ public static class BuildingGenerator {
         return heights;
     }
 
-    private static Vector3[] FillVertices(Vector3 minBlockSize, Vector3 maxBlockSize, int blocks, float overlap)
+    private static Vector3[] FillVertices(Vector3 minBlockSize, Vector3 maxBlockSize, int blocks, float overlap, float focalRadius = 0f)
     {
         Vector3[] vertices = new Vector3[blocks * 24];
+
+        float buildingsOnOuterCircumference = 2f * focalRadius * Mathf.PI / maxBlockSize.x;
+        float buildingsOnInnerCircumference = 2f * (focalRadius - maxBlockSize.z) * Mathf.PI / maxBlockSize.x;
 
         float blockBase = 0f;
         float lastBlockHeight = 0f;
