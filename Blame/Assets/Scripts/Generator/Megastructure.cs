@@ -4,14 +4,17 @@ using System.Collections;
 /// <summary>
 /// Base class for objects in the city
 /// </summary>
+[System.Serializable]
 public class Megastructure : MonoBehaviour {
 
     //Total dimensions of the object
-    public float width;
+    [SerializeField]
+    private int width;
 
-    public float length;
+    [SerializeField]
+    private int length;
 
-    public float Width
+    public int Width
     {
         get
         {
@@ -20,11 +23,11 @@ public class Megastructure : MonoBehaviour {
 
         set
         {
-            width = value;
+            width = Mathf.Abs(value);
         }
     }
 
-    public float Length
+    public int Length
     {
         get
         {
@@ -33,7 +36,7 @@ public class Megastructure : MonoBehaviour {
 
         set
         {
-            length = value;
+            length = Mathf.Abs(value);
         }
     }
 }

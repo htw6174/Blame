@@ -75,9 +75,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 3
-  length: 2
+  length: 3
   minDimensions: {x: 1, y: 1, z: 1}
-  maxDimensions: {x: 3, y: 3, z: 2}
+  maxDimensions: {x: 3, y: 4, z: 3}
   minBlocks: 6
   maxBlocks: 10
   overlap: 0.5
@@ -85,7 +85,7 @@ MonoBehaviour:
   tilesPerWorldUnit: 0.5
   texWidth: 128
   texHeight: 128
-  baseColor: {r: 0.058823526, g: 0.058823526, b: 0.058823526, a: 0}
+  baseColor: {r: 0.058823526, g: 0.058823526, b: 0.058823526, a: 1}
   lightColor: {r: 0.5686275, g: 1, b: 0.9607843, a: 1}
   lightSpacing: 12
   lightFrequency: 0.4

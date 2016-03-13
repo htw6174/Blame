@@ -20,6 +20,8 @@ public static class BuildingGenerator {
 
         building.uv = FillUV(blocks, tilesPerWorldUnit, vertices);
 
+        building.uv2 = FillUV2(blocks, tilesPerWorldUnit, vertices);
+
         building.RecalculateNormals();
 
         building.RecalculateBounds();
@@ -102,6 +104,13 @@ public static class BuildingGenerator {
         return vertices;
     }
 
+    private static Vector3[] FillNormals(int blocks)
+    {
+        Vector3[] normals = new Vector3[blocks * 24];
+
+        return normals;
+    }
+
     private static int[] FillTriangles(int blocks)
     {
         int[] tris = new int[blocks * 12 * 3];
@@ -161,6 +170,48 @@ public static class BuildingGenerator {
         }
 
         return uv;
+    }
+
+    private static Vector2[] FillUV2(int blocks, float tilesPerWorldUnit, Vector3[] vertices)
+    {
+        Vector2[] uv2 = new Vector2[blocks * 24];
+
+        for(int v = 0, b = 0; b < blocks; b++)
+        {
+            float blockHeight = vertices[v].y - vertices[v + 23].y;
+
+            float width = Vector3.Distance(vertices[v], vertices[v + 1]);
+            float length = Vector3.Distance(vertices[v], vertices[v + 2]);
+
+            //Set top face
+            uv2[v] = Vector2.zero;
+            uv2[v + 1] = Vector2.right * width * tilesPerWorldUnit;
+            uv2[v + 2] = Vector2.up * length * tilesPerWorldUnit;
+            uv2[v + 3] = uv2[v + 1] + uv2[v + 2];
+
+            v += 4;
+
+            //Loop through sides 4 verts at a time
+            for (int s = 0; s < 4; s++, v += 4)
+            {
+                float sideWidth = Vector3.Distance(vertices[v], vertices[v + 1]);
+
+                uv2[v] = Vector2.zero;
+                uv2[v + 1] = Vector2.right * sideWidth * tilesPerWorldUnit;
+                uv2[v + 2] = Vector2.up * blockHeight * tilesPerWorldUnit;
+                uv2[v + 3] = uv2[v + 1] + uv2[v + 2];
+            }
+
+            //Set bottom face
+            uv2[v] = Vector2.zero;
+            uv2[v + 1] = Vector2.right * width * tilesPerWorldUnit;
+            uv2[v + 2] = Vector2.up * length * tilesPerWorldUnit;
+            uv2[v + 3] = uv2[v + 1] + uv2[v + 2];
+
+            v += 4;
+        }
+
+        return uv2;
     }
 
     private static Vector3[] FillNormals(int width, int length)

@@ -39,13 +39,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe7ffd0ee629bcc409e2fc0fdb5366b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  length: 8
-  xStructures: 4
-  zStructures: 4
+  width: 18
+  length: 18
+  xStructures: 6
+  zStructures: 6
   roadWidth: 0
-  structurePrefab: {fileID: 11429918, guid: b38163812151c15498e122f3ccbc076c, type: 2}
-  blocks: []
+  defaultStructure:
+    prefab: {fileID: 11429918, guid: b38163812151c15498e122f3ccbc076c, type: 2}
+    spawnChance: 1
+  alternativeStructures:
+  - prefab: {fileID: 11486718, guid: 23de57611b20c9340a000019422950de, type: 2}
+    spawnChance: 1
+  - prefab: {fileID: 11426750, guid: 5aa96833f8c754c46a5c6ecb8dfb4703, type: 2}
+    spawnChance: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

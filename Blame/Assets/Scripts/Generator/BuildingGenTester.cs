@@ -30,9 +30,8 @@ public class BuildingGenTester : Megastructure {
 
     public void UpdateDimensions()
     {
-        Width = maxDimensions.x;
-        Length = maxDimensions.z;
-        Debug.Log(Width + ", " + Length);
+        Width = Mathf.CeilToInt(maxDimensions.x);
+        Length = Mathf.CeilToInt(maxDimensions.z);
     }
 
     public void Generate()
@@ -54,7 +53,9 @@ public class BuildingGenTester : Megastructure {
     {
         Material mat = GetComponent<MeshRenderer>().material;
         mat.EnableKeyword("_Emission");
+        mat.EnableKeyword("_NormalMap");
         mat.mainTexture = WallGenerator.Create(texWidth, texHeight, 0, 0f, baseColor, Color.white);
         mat.SetTexture("_EmissionMap", WindowGenerator.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
+        mat.SetTexture("_BumpMap", GreebleGenerator.Create(texWidth, texHeight));
     }
 }
