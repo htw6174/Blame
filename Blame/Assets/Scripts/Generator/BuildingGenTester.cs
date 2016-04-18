@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
 public class BuildingGenTester : Megastructure {
 
     public Vector3 minDimensions;
@@ -41,12 +41,19 @@ public class BuildingGenTester : Megastructure {
         float focalRadius = Vector3.Distance(transform.position, focalPoint);
         mesh = BuildingGenerator.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit, focalRadius);
         AssignMesh(mesh);
+        AssignCollider(mesh);
         //AssignMaterial();
     }
 
     private void AssignMesh(Mesh mesh)
     {
         GetComponent<MeshFilter>().mesh = mesh;
+    }
+
+    private void AssignCollider(Mesh mesh)
+    {
+        MeshCollider collider = GetComponent<MeshCollider>();
+        collider.sharedMesh = mesh;
     }
 
     private void AssignMaterial()

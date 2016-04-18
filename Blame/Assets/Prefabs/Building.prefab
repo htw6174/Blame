@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3358718}
   - 23: {fileID: 2307840}
   - 114: {fileID: 11429918}
+  - 64: {fileID: 6439686}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -63,6 +64,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198372}
   m_Mesh: {fileID: 0}
+--- !u!64 &6439686
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198372}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 0}
 --- !u!114 &11429918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,8 +91,8 @@ MonoBehaviour:
   length: 3
   minDimensions: {x: 1, y: 1, z: 1}
   maxDimensions: {x: 3, y: 4, z: 3}
-  minBlocks: 6
-  maxBlocks: 10
+  minBlocks: 20
+  maxBlocks: 30
   overlap: 0.5
   focalPoint: {x: 0, y: 0, z: 0}
   tilesPerWorldUnit: 0.5

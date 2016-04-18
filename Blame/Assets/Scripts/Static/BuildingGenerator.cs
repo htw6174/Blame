@@ -141,11 +141,42 @@ public static class BuildingGenerator {
         {
             float blockHeight = vertices[v].y - vertices[v + 23].y;
 
+            //Define uv positions
+            Vector2 topBottomLeft = new Vector2(1f / 3f, 1f / 3f);
+            Vector2 topBottomRight = new Vector2(2f / 3f, 1f / 3f);
+            Vector2 topTopLeft = new Vector2(1f / 3f, 2f / 3f);
+            Vector2 topTopRight = new Vector2(2f / 3f, 2f / 3f);
+
+            Vector2 bottomBottomLeft = new Vector2(0f, 0f);
+            Vector2 bottomBottomRight = new Vector2(1f / 3f, 0f);
+            Vector2 bottomTopLeft = new Vector2(0f, 1f / 3f);
+            Vector2 bottomTopRight = topBottomLeft;
+
+            Vector2 northBottomLeft = topTopLeft;
+            Vector2 northBottomRight = topTopRight;
+            Vector2 northTopLeft = new Vector2(1f / 3f, 1f);
+            Vector2 northTopRight = new Vector2(2f / 3f, 1f);
+
+            Vector2 westBottomLeft = new Vector2(0f, 1f / 3f);
+            Vector2 westBottomRight = topBottomLeft;
+            Vector2 westTopLeft = new Vector2(0f, 2f / 3f);
+            Vector2 westTopRight = topTopLeft;
+
+            Vector2 eastBottomLeft = topBottomRight;
+            Vector2 eastBottomRight = new Vector2(1f, 1f / 3f);
+            Vector2 eastTopLeft = topTopRight;
+            Vector2 eastTopRight = new Vector2(1f, 2f / 3f);
+
+            Vector2 southBottomLeft = new Vector2(1f / 3f, 0f);
+            Vector2 southBottomRight = new Vector2(2f / 3f, 0f);
+            Vector2 southTopLeft = topBottomLeft;
+            Vector2 southTopRight = topBottomRight;
+
             //Set top face uvs
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
+            uv[v++] = topBottomLeft;
+            uv[v++] = topBottomRight;
+            uv[v++] = topTopLeft;
+            uv[v++] = topTopRight;
             //uv[v++] = Vector2.zero;
             //uv[v++] = Vector2.right;
             //uv[v++] = Vector2.up;
@@ -156,17 +187,17 @@ public static class BuildingGenerator {
             {
                 float sideWidth = Vector3.Distance(vertices[v], vertices[v + 1]);
 
-                uv[v] = Vector2.zero;
-                uv[v + 1] = Vector2.right * sideWidth * tilesPerWorldUnit;
-                uv[v + 2] = Vector2.up * blockHeight * tilesPerWorldUnit;
-                uv[v + 3] = uv[v + 1] + uv[v + 2];
+                uv[v] = northBottomLeft;
+                uv[v + 1] = northBottomRight; //Vector2.right * sideWidth * tilesPerWorldUnit;
+                uv[v + 2] = northTopLeft; //Vector2.up * blockHeight * tilesPerWorldUnit;
+                uv[v + 3] = northTopRight; //uv[v + 1] + uv[v + 2];
             }
 
             //Set bottom face uvs
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
-            uv[v++] = Vector2.zero;
+            uv[v++] = bottomBottomLeft;
+            uv[v++] = bottomBottomRight;
+            uv[v++] = bottomTopLeft;
+            uv[v++] = bottomTopRight;
         }
 
         return uv;

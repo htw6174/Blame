@@ -14,8 +14,11 @@ public class InputManager : MonoBehaviour
     public string axisUpDown = "UpDown";
 
     public string walkModifier = "Walk";
+    public string runModifier = "Run";
     [Range(0f, 1f)]
     public float walkSpeed = 0.5f;
+    [Range(1f, 10f)]
+    public float runSpeed = 2f;
 
     public bool invertCamera;
     [Range(0.1f, 10f)]
@@ -59,7 +62,13 @@ public class InputManager : MonoBehaviour
         movementVector.y = Input.GetAxis(axisUpDown);
         movementVector.z = Input.GetAxis(axisForwardBack);
 
-        if (Input.GetButton(walkModifier))
+        if (movementVector.magnitude > 1f) movementVector = movementVector.normalized;
+
+        if (Input.GetButton(runModifier))
+        {
+            movementVector *= runSpeed;
+        }
+        else if (Input.GetButton(walkModifier))
         {
             movementVector *= walkSpeed;
         }

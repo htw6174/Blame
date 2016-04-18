@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveVelocity(Vector3 movementVector)
     {
-        if (movementVector.magnitude > 1f) movementVector = movementVector.normalized;
         playerRigidbody.velocity = playerCamera.transform.TransformVector(movementVector) * speed;
     }
 

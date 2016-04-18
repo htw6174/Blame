@@ -35,36 +35,6 @@ public class DistrictGenerator : Megastructure {
         }
 
         FillStructureType(defaultStructure);
-
-        //Old simple generation code
-
-        //float xSpacing = defaultStructure.prefab.Width + roadWidth;
-        //float zSpacing = defaultStructure.prefab.Length + roadWidth;
-
-        //blockSize = (int)Mathf.Max(xSpacing, zSpacing);
-
-        //float totalRoadWidth = roadWidth * (xStructures - 1);
-        //float totalRoadLength = roadWidth * (zStructures - 1);
-
-        //float totalWidth = (defaultStructure.prefab.Width * (xStructures - 1)) + totalRoadWidth;
-        //float totalLength = (defaultStructure.prefab.Length * (zStructures - 1)) + totalRoadLength;
-
-        //structures = new Megastructure[xStructures, zStructures];
-
-        //for (int i = 0, z = 0; z < zStructures; z++)
-        //{
-        //    for (int x = 0; x < xStructures; x++, i++)
-        //    {
-        //        Megastructure newStructure = Instantiate(defaultStructure.prefab);
-
-        //        float xPos = ((float)x * xSpacing) - ((totalWidth) / 2f);
-        //        float zPos = ((float)z * zSpacing) - (totalLength / 2f);
-        //        Vector3 blockPosition = new Vector3(xPos, 0f, zPos);
-
-        //        newStructure.transform.SetParent(transform, false);
-        //        newStructure.transform.position = transform.TransformPoint(blockPosition);
-        //    }
-        //}
     }
     
     /// <summary>

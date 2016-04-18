@@ -3,11 +3,15 @@ using System.Collections;
 
 public static class GreebleGenerator {
 
+    public static int _MARGIN = 4;
+
     public static Texture2D Create(int width, int height)
     {
-        Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, true);
+        int totalWidth = (width * 3) + (_MARGIN * 4);
+        int totalHeight = (height * 3) + (_MARGIN * 4);
+        Texture2D tex = new Texture2D(totalWidth, totalHeight, TextureFormat.ARGB32, true);
         tex.name = "Building Normal Map";
-        tex.filterMode = FilterMode.Point;
+        tex.filterMode = FilterMode.Trilinear;
 
         for (int x = 0; x < width; x++)
         {
