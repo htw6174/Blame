@@ -37,6 +37,11 @@ public class BuildingBlockEditor : Editor {
         }
         EditorGUILayout.EndHorizontal();
 
+        if (GUILayout.Button("Recheck Clearance"))
+        {
+            ((BuildingBlock)serializedObject.targetObject).CheckForClearance();
+        }
+
         serializedObject.ApplyModifiedProperties();
     }
 }

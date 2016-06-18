@@ -3,12 +3,14 @@ using UnityEditor;
 using System.Collections;
 
 [CustomEditor(typeof(NodeGrid))]
-[CanEditMultipleObjects]
+//[CanEditMultipleObjects] //Can't support multi-object editing because reasons
 public class BuildingNodeEditor : Editor {
 
     SerializedProperty gridWidth;
     SerializedProperty gridHeight;
     SerializedProperty nodes;
+
+    NodeGrid grid;
 
     void OnEnable()
     {
@@ -20,31 +22,36 @@ public class BuildingNodeEditor : Editor {
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-
-        EditorGUI.BeginChangeCheck();
-        DrawDefaultInspector();
-        if (EditorGUI.EndChangeCheck())
-        {
-            foreach (NodeGrid grid in serializedObject.targetObjects)
-            {
-                grid.InitializeGrid();
-            }
-        }
         
+        EditorGUILayout.LabelField(string.Format("Width: {0}", gridWidth.intValue), string.Format("Height: {0}", gridHeight.intValue));
+        EditorGUILayout.HelpBox("Click on nodes to toggle on or off", MessageType.Info);
+
+        //EditorGUI.BeginChangeCheck();
+        //DrawDefaultInspector();
+        //if (EditorGUI.EndChangeCheck())
+        //{
+        //    foreach (NodeGrid grid in serializedObject.targetObjects)
+        //    {
+        //        grid.InitializeGrid();
+        //    }
+        //}
+
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Set All True"))
         {
-            foreach (NodeGrid grid in serializedObject.targetObjects)
-            {
-                grid.SetAllTrue();
-            }
+            //foreach (NodeGrid grid in serializedObject.targetObjects)
+            //{
+            //    grid.SetAllTrue();
+            //}
+            ((NodeGrid)serializedObject.targetObject).SetAllTrue();
         }
         if (GUILayout.Button("Set All False"))
         {
-            foreach (NodeGrid grid in serializedObject.targetObjects)
-            {
-                grid.SetAllFalse();
-            }
+            //foreach (NodeGrid grid in serializedObject.targetObjects)
+            //{
+            //    grid.SetAllFalse();
+            //}
+            ((NodeGrid)serializedObject.targetObject).SetAllFalse();
         }
         EditorGUILayout.EndHorizontal();
 
@@ -53,9 +60,9 @@ public class BuildingNodeEditor : Editor {
 
     private void OnSceneGUI()
     {
-        NodeGrid grid = target as NodeGrid;
+        grid = target as NodeGrid;
 
-        if (grid.nodes == null)
+        if (grid.NodesDefined() == false)
         {
             grid.InitializeGrid();
         }
@@ -64,11 +71,11 @@ public class BuildingNodeEditor : Editor {
         {
             for (int y = 0; y < grid.gridHeight; y++)
             {
-                Vector3 buttonPos = grid.transform.TransformPoint((x * grid.gridSpacing) - grid.LeftToRightHalfDist, (y * grid.gridSpacing) - grid.TopToBottomHalfDist, 0f);
-                Handles.color = grid.getNode(x, y) ? Color.green : Color.red;
-                if (Handles.Button(buttonPos, grid.transform.rotation, grid.gridSpacing * 0.6f, grid.gridSpacing * 0.6f, Handles.CubeCap))
+                Vector3 buttonPos = grid.GetNodePosition(x, y);
+                Handles.color = grid.GetNode(x, y) ? Color.green : Color.red;
+                if (Handles.Button(buttonPos, grid.transform.rotation, grid.nodeSpacing * 0.6f, grid.nodeSpacing * 0.6f, Handles.CubeCap))
                 {
-                    grid.flipNode(x, y);
+                    grid.FlipNode(x, y);
                 }
             }
         }

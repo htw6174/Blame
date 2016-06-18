@@ -6,31 +6,63 @@ public class BuildingBlock : MonoBehaviour {
 
     public Vector3 dimensions;
 
-    public NodeGrid front;
-    public NodeGrid back;
-    public NodeGrid right;
-    public NodeGrid left;
-    public NodeGrid top;
-    public NodeGrid bottom;
+    public BlockFace[] faces;
+
+    private int nodesPerWorldUnit = NodeProperties.nodesPerWorldUnit;
+
+    void OnEnable()
+    {
+        CheckForClearance();
+    }
+
+    public BlockFace GetRandomFace()
+    {
+        int index = Random.Range(0, faces.Length);
+        return faces[index];
+    }
+
+    public BlockFace GetOppositeFace(Vector3 facingDirection)
+    {
+        foreach (BlockFace face in faces)
+        {
+            if (face.facingDirection + facingDirection == Vector3.zero)
+            {
+                return face;
+            }
+        }
+        return null;
+    }
 
     public void SetAllGridsTrue()
     {
-        front.SetAllTrue();
-        back.SetAllTrue();
-        right.SetAllTrue();
-        left.SetAllTrue();
-        top.SetAllTrue();
-        bottom.SetAllTrue();
+        foreach (BlockFace face in faces)
+        {
+            face.grid.SetAllTrue();
+        }
     }
 
     public void SetAllGridsFalse()
     {
-        front.SetAllFalse();
-        back.SetAllFalse();
-        right.SetAllFalse();
-        left.SetAllFalse();
-        top.SetAllFalse();
-        bottom.SetAllFalse();
+        foreach (BlockFace face in faces)
+        {
+            face.grid.SetAllFalse();
+        }
+    }
+
+    public void CheckForClearance()
+    {
+        foreach (BlockFace face in faces)
+        {
+            face.grid.CheckForClearance();
+        }
+    }
+
+    public void CheckForClearanceDontRepeat()
+    {
+        foreach (BlockFace face in faces)
+        {
+            face.grid.CheckForClearance(false);
+        }
     }
 
     public void UpdateGrid()
@@ -41,35 +73,24 @@ public class BuildingBlock : MonoBehaviour {
 
     private void SetGridPositions()
     {
-        front.transform.localPosition = new Vector3(0f, 0f, dimensions.z * 0.5f);
-        back.transform.localPosition = new Vector3(0f, 0f, -dimensions.z * 0.5f);
-        right.transform.localPosition = new Vector3(dimensions.x * 0.5f, 0f, 0f);
-        left.transform.localPosition = new Vector3(-dimensions.x * 0.5f, 0f, 0f);
-        top.transform.localPosition = new Vector3(0f, dimensions.y * 0.5f, 0f);
-        bottom.transform.localPosition = new Vector3(0f, -dimensions.y * 0.5f, 0f);
+        foreach (BlockFace face in faces)
+        {
+            Vector3 position = new Vector3(face.relativePosition.x * dimensions.x, face.relativePosition.y * dimensions.y, face.relativePosition.z * dimensions.z) * 0.5f;
+            face.grid.transform.localPosition = position;
+        }
     }
 
     private void SetGridDimensions()
     {
-        front.gridWidth = (int)(dimensions.x * 12);
-        front.gridHeight = (int)(dimensions.y * 12);
-        front.InitializeGrid();
-        back.gridWidth = (int)(dimensions.x * 12);
-        back.gridHeight = (int)(dimensions.y * 12);
-        back.InitializeGrid();
+        foreach (BlockFace face in faces)
+        {
+            Vector3 widthHeightRotated = face.grid.transform.TransformDirection(dimensions);
+            int newWidth = (int)Mathf.Round(Mathf.Abs(widthHeightRotated.x) * nodesPerWorldUnit);
+            int newHeight = (int)Mathf.Round(Mathf.Abs(widthHeightRotated.y) * nodesPerWorldUnit);
+            face.grid.gridWidth = newWidth;
+            face.grid.gridHeight = newHeight;
 
-        right.gridWidth = (int)(dimensions.z * 12);
-        right.gridHeight = (int)(dimensions.y * 12);
-        right.InitializeGrid();
-        left.gridWidth = (int)(dimensions.z * 12);
-        left.gridHeight = (int)(dimensions.y * 12);
-        left.InitializeGrid();
-
-        top.gridWidth = (int)(dimensions.x * 12);
-        top.gridHeight = (int)(dimensions.z * 12);
-        top.InitializeGrid();
-        bottom.gridWidth = (int)(dimensions.x * 12);
-        bottom.gridHeight = (int)(dimensions.z * 12);
-        bottom.InitializeGrid();
+            face.grid.InitializeGrid();
+        }
     }
 }
