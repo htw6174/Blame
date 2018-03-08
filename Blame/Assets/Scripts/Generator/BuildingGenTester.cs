@@ -12,8 +12,6 @@ public class BuildingGenTester : Megastructure {
     [Range(0f, 1f)]
     public float overlap;
 
-    public Vector3 focalPoint;
-
     public float tilesPerWorldUnit;
 
     public int texWidth, texHeight;
@@ -38,8 +36,7 @@ public class BuildingGenTester : Megastructure {
     {
         UpdateDimensions();
         Mesh mesh = GetComponent<MeshFilter>().mesh;
-        float focalRadius = Vector3.Distance(transform.position, focalPoint);
-        mesh = BuildingGenerator.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit, focalRadius);
+        mesh = BuildingMesh.Create(minDimensions, maxDimensions, minBlocks, maxBlocks, overlap, tilesPerWorldUnit);
         AssignMesh(mesh);
         AssignCollider(mesh);
         //AssignMaterial();
@@ -61,8 +58,8 @@ public class BuildingGenTester : Megastructure {
         Material mat = GetComponent<MeshRenderer>().material;
         mat.EnableKeyword("_Emission");
         mat.EnableKeyword("_NormalMap");
-        mat.mainTexture = WallGenerator.Create(texWidth, texHeight, 0, 0f, baseColor, Color.white);
-        mat.SetTexture("_EmissionMap", WindowGenerator.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
+        mat.mainTexture = WallTexture.Create(texWidth, texHeight, baseColor, Color.white);
+        mat.SetTexture("_EmissionMap", WindowTexture.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
         mat.SetTexture("_BumpMap", GreebleGenerator.Create(texWidth, texHeight));
     }
 }

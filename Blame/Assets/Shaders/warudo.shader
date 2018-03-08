@@ -1,4 +1,6 @@
-﻿Shader "Custom/warudo"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/warudo"
 {
 	Properties
 	{
@@ -43,7 +45,7 @@
 			v2f vert (appdata v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				//o.origin = mul(_World2Object, float4(_Origin, 1.0));
 				//o.origin = mul(UNITY_MATRIX_VP, o.origin);

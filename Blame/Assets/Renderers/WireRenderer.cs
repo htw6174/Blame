@@ -77,7 +77,7 @@ public class WireRenderer : MonoBehaviour {
         _mesh.normals = normals;
         _mesh.SetIndices(triangles, MeshTopology.Quads, 0);
 
-        _mesh.Optimize();
+        ;
         _mesh.UploadMeshData(true);
     }
 }

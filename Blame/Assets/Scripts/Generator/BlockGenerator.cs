@@ -47,7 +47,7 @@ public class BlockGenerator : MonoBehaviour {
     {
         Material mat = GetComponent<MeshRenderer>().material;
         mat.EnableKeyword("_Emission");
-        mat.mainTexture = WallGenerator.Create(texWidth, texHeight, 0, 0f, baseColor, Color.white);
-        mat.SetTexture("_EmissionMap", WindowGenerator.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
+        mat.mainTexture = WallTexture.Create(texWidth, texHeight, baseColor, Color.white);
+        mat.SetTexture("_EmissionMap", WindowTexture.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
     }
 }

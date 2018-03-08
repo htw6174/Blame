@@ -22,8 +22,8 @@ public class WallGenTester : MonoBehaviour {
     {
         wallMaterial.EnableKeyword("_Emission");
         wallMaterial.EnableKeyword("_NormalMap");
-        wallMaterial.mainTexture = WallGenerator.Create(texWidth, texHeight, 0, 0f, baseColor, Color.magenta);
-        wallMaterial.SetTexture("_EmissionMap", WindowGenerator.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
+        wallMaterial.mainTexture = WallTexture.Create(texWidth, texHeight, baseColor, Color.magenta);
+        wallMaterial.SetTexture("_EmissionMap", WindowTexture.Create(texWidth, texHeight, lightSpacing, lightFrequency, lightColor));
         wallMaterial.SetTexture("_BumpMap", GreebleGenerator.Create(texWidth, texHeight));
     }
 }

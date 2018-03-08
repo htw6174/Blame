@@ -1,3 +1,8 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
 Shader "Custom/GS Billboard" 
 {
 	Properties 
@@ -57,7 +62,7 @@ Shader "Custom/GS Billboard"
 				{
 					GS_INPUT output = (GS_INPUT)0;
 
-					output.pos =  mul(_Object2World, v.vertex);
+					output.pos =  mul(unity_ObjectToWorld, v.vertex);
 					output.normal = v.normal;
 					output.tex0 = float2(0, 0);
 
@@ -85,7 +90,7 @@ Shader "Custom/GS Billboard"
 					v[2] = float4(p[0].pos - halfWidth * right - halfHeight * up, 1.0f);
 					v[3] = float4(p[0].pos - halfWidth * right + halfHeight * up, 1.0f);
 
-					float4x4 vp = mul(UNITY_MATRIX_MVP, _World2Object);
+					float4x4 vp = UnityObjectToClipPos(unity_WorldToObject);
 					FS_INPUT pIn;
 					pIn.pos = mul(vp, v[0]);
 					pIn.tex0 = float2(1.0f, 0.0f);

@@ -33,7 +33,6 @@ public class warudo_camera : MonoBehaviour {
         Graphics.Blit(src, dst, material);
     }
 
-    [BitStrap.Button]
     public void TimeStop()
     {
         StartCoroutine(AnimateMaterial());

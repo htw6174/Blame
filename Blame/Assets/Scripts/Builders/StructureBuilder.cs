@@ -51,7 +51,7 @@ public class StructureBuilder : Builder {
         if (face.grid.GetNode(0, 0)) //If the NodeGrids match up
         {
             Vector3 placedPosition = face.grid.transform.position - prefabFace.grid.transform.localPosition;
-            GameObject newStructure = Instantiate(structurePrefab, placedPosition, Quaternion.identity) as GameObject;
+            Instantiate(structurePrefab, placedPosition, Quaternion.identity);
         }
     }
 

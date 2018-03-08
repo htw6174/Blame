@@ -73,7 +73,7 @@ public class BuildingNodeEditor : Editor {
             {
                 Vector3 buttonPos = grid.GetNodePosition(x, y);
                 Handles.color = grid.GetNode(x, y) ? Color.green : Color.red;
-                if (Handles.Button(buttonPos, grid.transform.rotation, grid.nodeSpacing * 0.6f, grid.nodeSpacing * 0.6f, Handles.CubeCap))
+                if (Handles.Button(buttonPos, grid.transform.rotation, grid.nodeSpacing * 0.6f, grid.nodeSpacing * 0.6f, Handles.CubeHandleCap))
                 {
                     grid.FlipNode(x, y);
                 }
